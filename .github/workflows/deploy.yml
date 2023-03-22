@@ -1,0 +1,14 @@
+name: scp files
+on: [push]
+jobs:
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Run tests
+      run: npm test
+    - name: Check test results
+      if: ${{ failure() }}
+      run: echo "Tests failed. Build failed." && exit 1
