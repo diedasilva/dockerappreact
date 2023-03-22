@@ -12,3 +12,9 @@ jobs:
         node-version: 16
     - run: npm ci
     - run: npm test
+    - uses: actions/checkout@master
+    - name: Run tests
+      run: npm test
+    - name: Check test results
+      if: ${{ failure() }}
+      run: echo "Tests failed. Build failed." && exit 1
