@@ -18,8 +18,18 @@ jobs:
       run: echo "Tests failed. Build failed." && exit 1
     - name: Build Docker app
       run: docker build . -t dockerreactappdsm
+    - name: Update version number
+      if: github.ref == 'refs/heads/main' && startsWith(github.head_ref, 'feat/')
+      run: |
+        VERSION=$(echo ${{ env.GITHUB_REF }} | cut -d'/' -f 2)
+        npm version $VERSION
+    - name: Update version number
+      if: github.ref == 'refs/heads/main' && startsWith(github.head_ref, 'fix/')
+      run: |
+        VERSION=$(echo ${{ env.GITHUB_REF }} | cut -d'/' -f 3)
+        npm version $VERSION
     - name: Set Tag Docker app
-      run: docker tag dockerreactappdsm ghcr.io/diedasilva/dockerreactappdsmiim:1.0.0
+      run: docker tag dockerreactappdsm ghcr.io/diedasilva/dockerreactappdsmiim:$VERSION
     - name: Login to GitHub Container Registry
       uses: docker/login-action@v2
       with:
