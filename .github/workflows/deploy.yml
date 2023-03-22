@@ -27,4 +27,4 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     - name: Push Docker app
-      run : docker push ghcr.io/diedasilva/dockerreactappdsmiim:1.1.0
+      run : docker push ghcr.io/diedasilva/dockerreactappdsmiim:1.0.0
