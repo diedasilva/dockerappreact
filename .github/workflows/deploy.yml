@@ -16,6 +16,8 @@ jobs:
     - name: Check test results
       if: ${{ failure() }}
       run: echo "Tests failed. Build failed." && exit 1
+    - name: Build
+      run: npm run build 
     - name: Build Docker app
       run: docker build . -t dockerreactappdsm
     - name: Update version number
